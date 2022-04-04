@@ -32,3 +32,8 @@ aws configure get default.region
 
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 echo "export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" >> ~/.bash_profile
+
+
+## Add db password to ssm 
+
+aws ssm put-parameter --name /database/password  --value mysqlpassword --type SecureString
