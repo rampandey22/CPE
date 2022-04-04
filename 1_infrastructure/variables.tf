@@ -4,7 +4,7 @@
 
 variable "aws_region" {
   description = "The AWS region to create things in."
-  
+ 
 }
 
 variable "aws_profile" {
@@ -57,13 +57,40 @@ variable "fargate_memory" {
 }
 
 variable "fargate-task-service-role" {
-  description = "Service role for the fargate task"
- 
+  description = "Service role for fargate task"
+  
+}
+
+variable "db_instance_type" {
+  description = "RDS instance type"
+  default     = "db.m5.large"
+}
+
+variable "db_name" {
+  description = "RDS DB name"
+  default     = "cpe"
+}
+
+variable "db_user" {
+  description = "RDS DB username"
+  default     = "root"
+}
+
+
+
+variable "db_profile" {
+  description = "RDS Profile"
+  default     = "mysql"
+}
+
+variable "db_initialize" {
+  description = "RDS initialize"
+  default     = "yes"
 }
 
 variable "cw_log_group" {
   description = "CloudWatch Log Group"
-  default     = "CPE"
+  default     = "cpe"
 }
 
 variable "cw_log_stream" {

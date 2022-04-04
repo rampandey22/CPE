@@ -6,11 +6,6 @@ resource "aws_ecs_cluster" "ecs-cluster" {
   name = "${var.stack}-Cluster"
 }
 
-# ---------------------------------------------------------------------------------------------------------------------
-# ECS TASK DEFINITION USING FARGATE
-# ---------------------------------------------------------------------------------------------------------------------
-
-
 
 resource "aws_ecs_task_definition" "task-def" {
   family                   = var.family
@@ -18,9 +13,9 @@ resource "aws_ecs_task_definition" "task-def" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.fargate_cpu
   memory                   = var.fargate_memory
+  
   execution_role_arn       = aws_iam_role.tasks-service-role.arn
   
-
   container_definitions = <<DEFINITION
 [
   {
@@ -39,7 +34,26 @@ resource "aws_ecs_task_definition" "task-def" {
         },
     "environment": [
 
-            
+            {
+                "name": "spring.datasource.username",
+                "value": "${var.db_user}"
+            },
+            {
+                "name": "spring.datasource.password",
+                "value": "${data.aws_ssm_parameter.dbpassword.value}"
+            },
+            {
+                "name": "spring.datasource.initialize",
+                "value": "${var.db_initialize}"
+            },
+            {
+                "name": "spring.profiles.active",
+                "value": "${var.db_profile}"
+            },
+            {
+                "name": "spring.datasource.url",
+                "value": "jdbc:mysql://${aws_db_instance.db.address}/${var.db_name}"
+            }
         ],
     "portMappings": [
       {
