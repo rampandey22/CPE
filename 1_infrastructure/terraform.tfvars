@@ -1,3 +1,8 @@
 aws_region="us-east-1"
 stack="CPE"
+fargate-task-service-role="cpe-fargate-task-role"
+aws_ecr="cpe"
 aws_profile="default"
+source_repo_name="restful-web-services"
+source_repo_branch="master"
+image_repo_name="cpe"
