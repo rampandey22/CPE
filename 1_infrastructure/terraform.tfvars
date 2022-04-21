@@ -1,4 +1,4 @@
-aws_region="us-east-1"
+aws_region="ap-southeast-2"
 stack="CPE"
 fargate-task-service-role="cpe-fargate-task-role"
 aws_ecr="cpe"
